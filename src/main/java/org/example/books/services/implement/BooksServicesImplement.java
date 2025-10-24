@@ -3,6 +3,7 @@ package org.example.books.services.implement;
 import org.example.books.entities.BooksEntity;
 import org.example.books.repositories.BooksRepository;
 import org.example.books.services.interfaces.BooksServices;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,13 +18,21 @@ public class BooksServicesImplement implements BooksServices {
     }
 
     @Override
-    public void addBook(String title, String author, Integer pages) {
+    public ResponseEntity<String> addBook(String title, String author, Integer pages) {
+
+        if (!booksRepository.findByTitleAndAuthorAndPages(title, author, pages).isEmpty()) {
+            // Book already exists, do not add duplicate
+            return ResponseEntity.badRequest().body("Book already exists in the database.");
+        }
+
+
         BooksEntity book = BooksEntity.builder()
                 .title(title)
                 .author(author)
                 .pages(pages)
                 .build();
         booksRepository.save(book);
+        return ResponseEntity.ok("Book added successfully.");
     }
 
     @Override

@@ -32,10 +32,10 @@ public class BooksController {
         }
 
         if(book != null){
-            booksServices.addBook(book.getTitle(), book.getAuthor(), book.getPages());
-            return ResponseEntity.ok("Book added successfully.");
+            return booksServices.addBook(book.getTitle(), book.getAuthor(), book.getPages());
+            //return ResponseEntity.ok("Book added successfully.");
         } else {
-            return ResponseEntity.badRequest().body("Invalid book data.");
+            return ResponseEntity.badRequest().body("Invalid book data. Empty body.");
         }
 
     }
