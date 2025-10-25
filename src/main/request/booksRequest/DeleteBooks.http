@@ -1,4 +1,4 @@
 ### Delete Books Request ###
-DELETE http://localhost:8080/api/books/book/2p^
+DELETE http://localhost:8080/api/books/book/2
 
 ###

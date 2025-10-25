@@ -1,6 +1,8 @@
 package org.example.books.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
 import org.example.books.dto.BookRequest;
 import org.example.books.dto.BookResponse;
@@ -8,6 +10,7 @@ import org.example.books.entities.AuthorEntity;
 import org.example.books.entities.BooksEntity;
 import org.example.books.exceptions.BadRequestException;
 import org.example.books.repositories.AuthorRepository;
+import org.example.books.repositories.BooksRepository;
 import org.example.books.services.interfaces.BooksServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +22,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
+@Slf4j
 public class BooksController {
 
-    //Just pour test ici
+    //Just pour test ici, a retirer plus tard
     private final AuthorRepository authorRepository;
+    private final BooksRepository booksRepository;
+    //fin pour test ici
+
     private final BooksServices booksServices;
     private final Faker faker = new Faker();
     LocalDate start = LocalDate.of(1950, 1, 1);
@@ -36,14 +43,11 @@ public class BooksController {
 //    }
 
     // Endpoints to be implemented
-    @PostMapping()
-    public ResponseEntity<String> addBook(@RequestBody(required = false) BookRequest book){
+
+    @PostMapping("/testdata")
+    public ResponseEntity<String> generateTestData() {
         // Add 10 random books if none exist
-        //exporter ceci vers le service
-
-
-
-        if(booksServices.getAllBooks().isEmpty()){
+        if (booksServices.getAllBooks().isEmpty()) {
 
             for (int i = 0; i < 10; i++) {
                 String author = faker.book().author();
@@ -66,13 +70,20 @@ public class BooksController {
                         title,
                         pages,
                         publishedDate,
-                       randomAuthor.getId()
+                        randomAuthor.getId()
                 );
                 booksServices.addBook(bookRequest);
             }
             return ResponseEntity.ok("10 random books added to the database.");
         }
+    else {
+            return ResponseEntity.ok("Books already exist in the database. No test data added.");
+        }
+    }
 
+
+    @PostMapping()
+    public ResponseEntity<String> addBook(@Valid  @RequestBody BookRequest book){
         if(book != null){
             return booksServices.addBook(book);
             //return ResponseEntity.ok("Book added successfully.");
@@ -93,6 +104,9 @@ public class BooksController {
 
     @DeleteMapping("/book/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable Long id){
+
+        authorRepository.deleteAll(); // Just for testing, to be removed later
+        booksRepository.deleteAll(); // Just for testing, to be removed later
         return  booksServices.removeBook(id);
     }
 
