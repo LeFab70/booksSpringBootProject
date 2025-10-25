@@ -1,23 +1,29 @@
 package org.example.books.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Getter
-@Setter
+//@Getter
+//@Setter
+@Data
 public class BooksEntity {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private Long id;
     private String title;
-    private String author;
     private Integer pages;
+    private LocalDate publishedDate;
+    @ManyToOne
+    @JoinColumn(name = "author_id", nullable = false, foreignKey = @ForeignKey(name = "FK_AUTHOR_BOOKS", foreignKeyDefinition = "FOREIGN KEY (author_id) REFERENCES author(author_id) ON DELETE CASCADE"))
+    @JsonManagedReference // to handle bidirectional relationship during JSON serialization
+    private AuthorEntity author;
 }

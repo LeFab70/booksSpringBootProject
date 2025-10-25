@@ -1,0 +1,12 @@
+###Post request
+### POST request to example server
+POST http://localhost:8080/api/books
+Content-Type: application/json
+
+{
+  "title": "New Book Title",
+  "author": "Author Name",
+  "pages": 350
+}
+
+###
