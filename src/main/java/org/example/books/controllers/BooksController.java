@@ -1,5 +1,7 @@
 package org.example.books.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Tag(name = "Books Controller", description = "Endpoints for managing books")
 @RestController
 @RequestMapping("/api/books")
 @RequiredArgsConstructor
@@ -45,6 +48,7 @@ public class BooksController {
 
     // Endpoints to be implemented
 
+    @Operation(summary = "Generate Test Data", description = "Generates and adds random test data to the database if no books exist.")
     @PostMapping("/testdata")
     public ResponseEntity<String> generateTestData() {
 
@@ -95,6 +99,7 @@ public class BooksController {
     }
 
 
+    @Operation(summary = "Add a New Book", description = "Adds a new book to the database.")
     @PostMapping()
     public ResponseEntity<String> addBook(@Valid  @RequestBody BookRequest book){
         if(book != null){
@@ -105,16 +110,18 @@ public class BooksController {
         }
 
     }
+    @Operation(summary = "Get All Books", description = "Retrieves a list of all books in the database.")
     @GetMapping()
     public List<BookResponse> getAllBooks(){
         return booksServices.getAllBooks();
     }
-
+@Operation(summary = "Get Book by ID", description = "Retrieves a book by its ID.")
     @GetMapping("/book/{id}")
     public BookResponse getBookById(@PathVariable Long id){
         return booksServices.getBookById(id);
     }
 
+    @Operation(summary = "Delete Book by ID", description = "Deletes a book by its ID.")
     @DeleteMapping("/book/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable Long id){
 
@@ -125,6 +132,7 @@ public class BooksController {
         return  booksServices.removeBook(id);
     }
 
+    @Operation(summary = "Update Book by ID", description = "Updates the details of a book by its ID.")
     @PutMapping("/book/{id}")
     public ResponseEntity<String> updateBook(@PathVariable Long id, @RequestBody BookRequest updatedBook){
         return booksServices.updateBook(id,
