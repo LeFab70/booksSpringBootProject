@@ -4,11 +4,12 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
-import org.example.books.dto.BookRequest;
-import org.example.books.dto.BookResponse;
+import org.example.books.dto.booksDto.BookRequest;
+import org.example.books.dto.booksDto.BookResponse;
+import org.example.books.entities.AddressEntity;
 import org.example.books.entities.AuthorEntity;
-import org.example.books.entities.BooksEntity;
 import org.example.books.exceptions.BadRequestException;
+import org.example.books.repositories.AdressRepository;
 import org.example.books.repositories.AuthorRepository;
 import org.example.books.repositories.BooksRepository;
 import org.example.books.services.interfaces.BooksServices;
@@ -16,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,6 +28,7 @@ public class BooksController {
     //Just pour test ici, a retirer plus tard
     private final AuthorRepository authorRepository;
     private final BooksRepository booksRepository;
+    private final AdressRepository adressRepository;
     //fin pour test ici
 
     private final BooksServices booksServices;
@@ -46,8 +47,18 @@ public class BooksController {
 
     @PostMapping("/testdata")
     public ResponseEntity<String> generateTestData() {
-        // Add 10 random books if none exist
+
         if (booksServices.getAllBooks().isEmpty()) {
+            for (int i=0;i<5;i++) {
+                adressRepository.save(
+                       AddressEntity.builder()
+                                .street(faker.address().streetAddress())
+                                .city(faker.address().city())
+                                .state(faker.address().state())
+                                .zipCode(faker.address().zipCode())
+                                .build()
+                );
+            }
 
             for (int i = 0; i < 10; i++) {
                 String author = faker.book().author();
@@ -56,6 +67,8 @@ public class BooksController {
                                 .first_name(author)
                                 .last_name(faker.name().lastName())
                                 .birth_date(LocalDate.ofEpochDay(startEpochDay + faker.number().numberBetween(0, (endEpochDay - startEpochDay))))
+                                .email(faker.internet().emailAddress())
+                                .address(adressRepository.findAll().get(faker.number().numberBetween(0, adressRepository.findAll().size())))
                                 .build()
                 );
             }
@@ -107,6 +120,8 @@ public class BooksController {
 
         authorRepository.deleteAll(); // Just for testing, to be removed later
         booksRepository.deleteAll(); // Just for testing, to be removed later
+        adressRepository.deleteAll(); // Just for testing, to be removed later
+
         return  booksServices.removeBook(id);
     }
 

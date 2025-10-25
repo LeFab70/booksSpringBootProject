@@ -1,4 +1,4 @@
-package org.example.books.dto;
+package org.example.books.dto.booksDto;
 
 import jakarta.validation.constraints.*;
 

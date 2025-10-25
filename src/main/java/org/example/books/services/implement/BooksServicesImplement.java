@@ -1,8 +1,8 @@
 package org.example.books.services.implement;
 
 import lombok.RequiredArgsConstructor;
-import org.example.books.dto.BookRequest;
-import org.example.books.dto.BookResponse;
+import org.example.books.dto.booksDto.BookRequest;
+import org.example.books.dto.booksDto.BookResponse;
 import org.example.books.entities.AuthorEntity;
 import org.example.books.entities.BooksEntity;
 import org.example.books.exceptions.BadRequestException;

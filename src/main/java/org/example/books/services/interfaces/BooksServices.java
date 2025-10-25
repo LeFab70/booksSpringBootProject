@@ -1,11 +1,9 @@
 package org.example.books.services.interfaces;
 
-import org.example.books.dto.BookRequest;
-import org.example.books.dto.BookResponse;
-import org.example.books.entities.BooksEntity;
+import org.example.books.dto.booksDto.BookRequest;
+import org.example.books.dto.booksDto.BookResponse;
 import org.springframework.http.ResponseEntity;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface BooksServices {

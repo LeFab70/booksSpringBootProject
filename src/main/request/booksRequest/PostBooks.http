@@ -1,7 +1,7 @@
 ###Post request
 ### POST request to example server
-POST http://localhost:8080/api/books
-//POST http://localhost:8080/api/books/testdata
+//POST http://localhost:8080/api/books
+POST http://localhost:8080/api/books/testdata
 Content-Type: application/json
 
 {
