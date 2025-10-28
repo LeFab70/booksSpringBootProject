@@ -1,4 +1,4 @@
-package org.example.books.dto.authorDto;
+package org.example.books.authors.dto;
 
 import java.util.List;
 

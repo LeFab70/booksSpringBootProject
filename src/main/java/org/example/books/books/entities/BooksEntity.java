@@ -1,8 +1,9 @@
-package org.example.books.entities;
+package org.example.books.books.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.books.authors.entities.AuthorEntity;
 
 import java.time.LocalDate;
 

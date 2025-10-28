@@ -1,4 +1,4 @@
-package org.example.books.dto.authorDto;
+package org.example.books.authors.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

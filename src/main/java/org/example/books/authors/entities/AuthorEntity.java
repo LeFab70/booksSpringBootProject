@@ -1,10 +1,12 @@
-package org.example.books.entities;
+package org.example.books.authors.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.books.adress.entities.AddressEntity;
+import org.example.books.books.entities.BooksEntity;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
 @Table(name = "author")
 public class AuthorEntity {
     @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
     private  Long id;
     private String first_name;
@@ -26,7 +28,7 @@ public class AuthorEntity {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "author",cascade = jakarta.persistence.CascadeType.ALL)
+    @OneToMany(mappedBy = "author",cascade = CascadeType.ALL)
     private List<BooksEntity> books;
 
     @ManyToOne

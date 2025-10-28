@@ -1,15 +1,15 @@
-package org.example.books.services.implement;
+package org.example.books.books.services.implement;
 
 import lombok.RequiredArgsConstructor;
-import org.example.books.dto.booksDto.BookRequest;
-import org.example.books.dto.booksDto.BookResponse;
-import org.example.books.entities.AuthorEntity;
-import org.example.books.entities.BooksEntity;
+import org.example.books.authors.entities.AuthorEntity;
+import org.example.books.authors.repositories.AuthorRepository;
+import org.example.books.books.dto.dto.BookRequest;
+import org.example.books.books.dto.dto.BookResponse;
+import org.example.books.books.entities.BooksEntity;
 import org.example.books.exceptions.BadRequestException;
 import org.example.books.exceptions.ResourceNotFoundException;
-import org.example.books.repositories.AuthorRepository;
-import org.example.books.repositories.BooksRepository;
-import org.example.books.services.interfaces.BooksServices;
+import org.example.books.books.repositories.BooksRepository;
+import org.example.books.books.services.interfaces.BooksServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,9 @@ public class BooksServicesImplement implements BooksServices {
     @Override
     public ResponseEntity<String> addBook(BookRequest request) {
 
-        //verifies if author exists
+        if (request == null)
+            throw new BadRequestException("Book request cannot be null.");
+          //verifies if author exists
         AuthorEntity author = authorRepository.findById(request.authorId())
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found."));
 

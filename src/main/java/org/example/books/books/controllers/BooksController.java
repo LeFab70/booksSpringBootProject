@@ -1,4 +1,4 @@
-package org.example.books.controllers;
+package org.example.books.books.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -6,15 +6,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
-import org.example.books.dto.booksDto.BookRequest;
-import org.example.books.dto.booksDto.BookResponse;
-import org.example.books.entities.AddressEntity;
-import org.example.books.entities.AuthorEntity;
-import org.example.books.exceptions.BadRequestException;
-import org.example.books.repositories.AdressRepository;
-import org.example.books.repositories.AuthorRepository;
-import org.example.books.repositories.BooksRepository;
-import org.example.books.services.interfaces.BooksServices;
+import org.example.books.adress.entities.AddressEntity;
+import org.example.books.adress.repositories.AdressRepository;
+import org.example.books.authors.entities.AuthorEntity;
+import org.example.books.authors.repositories.AuthorRepository;
+import org.example.books.books.dto.dto.BookRequest;
+import org.example.books.books.dto.dto.BookResponse;
+import org.example.books.books.repositories.BooksRepository;
+import org.example.books.books.services.interfaces.BooksServices;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -102,13 +101,8 @@ public class BooksController {
     @Operation(summary = "Add a New Book", description = "Adds a new book to the database.")
     @PostMapping()
     public ResponseEntity<String> addBook(@Valid  @RequestBody BookRequest book){
-        if(book != null){
             return booksServices.addBook(book);
             //return ResponseEntity.ok("Book added successfully.");
-        } else {
-           throw new BadRequestException("Book data is required.");
-        }
-
     }
     @Operation(summary = "Get All Books", description = "Retrieves a list of all books in the database.")
     @GetMapping()

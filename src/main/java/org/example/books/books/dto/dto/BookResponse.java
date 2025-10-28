@@ -1,4 +1,4 @@
-package org.example.books.dto.booksDto;
+package org.example.books.books.dto.dto;
 
 import java.time.LocalDate;
 

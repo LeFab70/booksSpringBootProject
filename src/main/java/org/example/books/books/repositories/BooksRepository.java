@@ -1,11 +1,9 @@
-package org.example.books.repositories;
+package org.example.books.books.repositories;
 
-import org.example.books.entities.AuthorEntity;
-import org.example.books.entities.BooksEntity;
+import org.example.books.authors.entities.AuthorEntity;
+import org.example.books.books.entities.BooksEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface BooksRepository extends JpaRepository<BooksEntity, Long> {

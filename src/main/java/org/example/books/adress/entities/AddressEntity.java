@@ -1,10 +1,11 @@
-package org.example.books.entities;
+package org.example.books.adress.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.books.authors.entities.AuthorEntity;
 
 import java.util.List;
 

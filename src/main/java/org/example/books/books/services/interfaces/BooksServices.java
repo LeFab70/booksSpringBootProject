@@ -1,7 +1,7 @@
-package org.example.books.services.interfaces;
+package org.example.books.books.services.interfaces;
 
-import org.example.books.dto.booksDto.BookRequest;
-import org.example.books.dto.booksDto.BookResponse;
+import org.example.books.books.dto.dto.BookRequest;
+import org.example.books.books.dto.dto.BookResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

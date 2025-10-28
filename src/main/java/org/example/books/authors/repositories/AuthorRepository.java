@@ -1,6 +1,6 @@
-package org.example.books.repositories;
+package org.example.books.authors.repositories;
 
-import org.example.books.entities.AuthorEntity;
+import org.example.books.authors.entities.AuthorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

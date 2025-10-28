@@ -1,6 +1,5 @@
-package org.example.books.dto.adressDto;
+package org.example.books.adress.dto;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
