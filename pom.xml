@@ -8,8 +8,8 @@
         <version>3.5.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>org.example</groupId>
-    <artifactId>books</artifactId>
+    <groupId>org.leFab</groupId>
+    <artifactId>library</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>books</name>
     <description>books</description>

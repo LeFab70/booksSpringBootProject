@@ -1,0 +1,14 @@
+###Post request
+### POST request to example server
+POST http://localhost:8080/api/books
+//POST http://localhost:8080/api/books/testdata
+Content-Type: application/json
+
+{
+  "title": "New Book Title12",
+  "pages": 99,
+  "publishedDate": "2026-06-13",
+  "authorId": 1
+}
+
+###
