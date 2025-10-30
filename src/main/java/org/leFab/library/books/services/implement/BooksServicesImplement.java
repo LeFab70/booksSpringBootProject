@@ -71,8 +71,8 @@ public class BooksServicesImplement implements BooksServices {
                         book.getTitle(),
                         book.getPages(),
                         book.getPublishedDate(),
-                        book.getAuthor().getFirst_name()+" "+book.getAuthor().getLast_name(),
-                        Period.between(book.getAuthor().getBirth_date(), LocalDate.now()) .getYears()
+                        book.getAuthor().getFirstName()+" "+book.getAuthor().getLastName(),
+                        Period.between(book.getAuthor().getBirthDate(), LocalDate.now()) .getYears()
                 ))
                 .toList();
     }
@@ -86,8 +86,8 @@ public class BooksServicesImplement implements BooksServices {
                   book.getTitle(),
                    book.getPages(),
                    book.getPublishedDate(),
-                   book.getAuthor().getFirst_name()+" "+book.getAuthor().getLast_name(),
-                    Period.between(book.getAuthor().getBirth_date(), LocalDate.now()) .getYears()
+                   book.getAuthor().getFirstName()+" "+book.getAuthor().getLastName(),
+                    Period.between(book.getAuthor().getBirthDate(), LocalDate.now()) .getYears()
                 );
 
        // boolean exists = booksRepository.existsById(id);
@@ -101,8 +101,8 @@ public class BooksServicesImplement implements BooksServices {
 //                    book.getTitle(),
 //                    book.getPages(),
 //                    book.getPublishedDate(),
-//                    book.getAuthor().getFirst_name()+" "+book.getAuthor().getLast_name(),
-//                    Period.between(book.getAuthor().getBirth_date(), LocalDate.now()) .getYears()
+//                    book.getAuthor().getFirstName()+" "+book.getAuthor().getLastName(),
+//                    Period.between(book.getAuthor().getBirthDate(), LocalDate.now()) .getYears()
 //            );
 //            }
 //            else throw new ResourceNotFoundException("Book not found.");

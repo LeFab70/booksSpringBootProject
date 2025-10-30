@@ -22,11 +22,13 @@ public class AuthorEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "author_id")
     private  Long id;
-    @Column( nullable = false)
-    private String first_name;
-    private String last_name;
-    @Column(nullable = false)
-    private LocalDate birth_date;
+    @Column( nullable = false,name = "first_name")
+    private String firstName;
+    @Column(name = "last_name")
+    private String lastName;
+    @Column(nullable = false,name = "birth_date")
+
+    private LocalDate birthDate;
     @Column(unique = true, nullable = false)
     private String email;
 

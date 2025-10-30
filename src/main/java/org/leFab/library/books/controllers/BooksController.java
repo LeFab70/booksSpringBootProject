@@ -68,9 +68,9 @@ public class BooksController {
                 String author = faker.book().author();
                 authorRepository.save(
                         AuthorEntity.builder()
-                                .first_name(author)
-                                .last_name(faker.name().lastName())
-                                .birth_date(LocalDate.ofEpochDay(startEpochDay + faker.number().numberBetween(0, (endEpochDay - startEpochDay))))
+                                .firstName(author)
+                                .lastName(faker.name().lastName())
+                                .birthDate(LocalDate.ofEpochDay(startEpochDay + faker.number().numberBetween(0, (endEpochDay - startEpochDay))))
                                 .email(faker.internet().emailAddress())
                                 .address(adressRepository.findAll().get(faker.number().numberBetween(0, adressRepository.findAll().size())))
                                 .build()

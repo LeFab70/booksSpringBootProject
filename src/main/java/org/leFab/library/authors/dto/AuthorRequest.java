@@ -11,6 +11,7 @@ public record AuthorRequest(
     String firstName,
     @NotNull(message = "Last name must not be null")
     @NotBlank(message = "Last name must not be blank")
+
     String lastName,
     @NotNull(message = "Birth date must not be null")
     @Past(message = "Birth date must be in the past")
