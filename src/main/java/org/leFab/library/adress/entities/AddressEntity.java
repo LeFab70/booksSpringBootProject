@@ -20,13 +20,13 @@ public class AddressEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "address_id")
     private Long id;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String street;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String city;
-    @Column(nullable = false)
+    @Column(nullable = false, length = 50)
     private String state;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 10)
     private String zipCode;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
