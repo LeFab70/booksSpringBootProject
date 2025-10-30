@@ -1,4 +1,4 @@
-package org.leFab.library.books.dto.dto;
+package org.leFab.library.books.dto;
 
 import jakarta.validation.constraints.*;
 
@@ -11,6 +11,7 @@ public record BookRequest(
         @Min(value = 1, message = "Pages must be at least 1")
         @Max(value = 10000, message = "Pages must not exceed 10000")
         Integer pages,
+        @NotNull(message = "Published date must not be null")
         @PastOrPresent(message = "Published date must be in the past or present")
         LocalDate publishedDate,
         @NotNull(message = "Author ID must not be null")

@@ -3,6 +3,7 @@ package org.leFab.library.authors.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
@@ -16,6 +17,8 @@ public record AuthorRequest(
     LocalDate birthDate,
     @NotBlank(message = "Email must not be blank")
     @NotNull(message = "Email must not be null")
+    @Pattern(regexp = "^[\\w.%+-]+@[\\w.-]+\\.[A-Za-z]{2,6}$",
+            message = "Email format is invalid")
     String email,
     @NotBlank(message = "Address ID must not be blank")
     @NotNull(message = "Address ID must not be null")

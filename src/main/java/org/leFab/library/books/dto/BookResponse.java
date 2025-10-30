@@ -1,4 +1,4 @@
-package org.leFab.library.books.dto.dto;
+package org.leFab.library.books.dto;
 
 import java.time.LocalDate;
 

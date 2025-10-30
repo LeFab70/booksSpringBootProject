@@ -1,12 +1,13 @@
 ### Put request to update a book by ID ###
 
-PUT http://localhost:8080/api/books/book/266
+PUT http://localhost:8080/api/books/book/2
 Content-Type: application/json
 
 {
-  "title": "Updated Book Title",
-  "author": "Updated Author Name",
-  "isbn": "123-4567890123",
-  "publishedDate": "2024-06-01"
+  "title": "What's Become of Waring",
+  "pages": 850,
+  "publishedDate": "1979-01-14",
+  "authorId": 4
+
 }
 ###

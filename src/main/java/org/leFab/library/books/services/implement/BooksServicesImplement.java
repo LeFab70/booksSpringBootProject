@@ -3,8 +3,8 @@ package org.leFab.library.books.services.implement;
 import lombok.RequiredArgsConstructor;
 import org.leFab.library.authors.entities.AuthorEntity;
 import org.leFab.library.authors.repositories.AuthorRepository;
-import org.leFab.library.books.dto.dto.BookRequest;
-import org.leFab.library.books.dto.dto.BookResponse;
+import org.leFab.library.books.dto.BookRequest;
+import org.leFab.library.books.dto.BookResponse;
 import org.leFab.library.books.entities.BooksEntity;
 import org.leFab.library.exceptions.BadRequestException;
 import org.leFab.library.exceptions.ResourceNotFoundException;
@@ -79,32 +79,57 @@ public class BooksServicesImplement implements BooksServices {
 
     @Override
     public BookResponse getBookById(Long id) {
-        boolean exists = booksRepository.existsById(id);
-        if (exists) {
-            BooksEntity book = booksRepository.findById(id).get();
-            return new BookResponse(
-                    book.getId(),
-                    book.getTitle(),
-                    book.getPages(),
-                    book.getPublishedDate(),
-                    book.getAuthor().getFirst_name()+" "+book.getAuthor().getLast_name(),
+
+        BooksEntity book=booksRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found."));
+        return new BookResponse(
+                      book.getId(),
+                  book.getTitle(),
+                   book.getPages(),
+                   book.getPublishedDate(),
+                   book.getAuthor().getFirst_name()+" "+book.getAuthor().getLast_name(),
                     Period.between(book.getAuthor().getBirth_date(), LocalDate.now()) .getYears()
-            );
-        }
-        else
-            throw new ResourceNotFoundException("Book not found.");
+                );
+
+       // boolean exists = booksRepository.existsById(id);
+//        if (exists) {
+//            Optional<BooksEntity> bookOp = booksRepository.findById(id);
+//            if(bookOp.isPresent())
+//            {
+//                BooksEntity book=bookOp.get();
+//                return new BookResponse(
+//                    book.getId(),
+//                    book.getTitle(),
+//                    book.getPages(),
+//                    book.getPublishedDate(),
+//                    book.getAuthor().getFirst_name()+" "+book.getAuthor().getLast_name(),
+//                    Period.between(book.getAuthor().getBirth_date(), LocalDate.now()) .getYears()
+//            );
+//            }
+//            else throw new ResourceNotFoundException("Book not found.");
+//        }
+//        else
+//            throw new ResourceNotFoundException("Book not found.");
     }
 
     @Override
     public ResponseEntity<String> updateBook(Long id, BookRequest request) {
 
-        boolean exists = booksRepository.existsById(id);
-        if (exists) {
-            BooksEntity bookToUpdate = booksRepository.findById(id).get();
+//        boolean exists = booksRepository.existsById(id);
+//        if (exists) {
+//            BooksEntity bookToUpdate = booksRepository.findById(id).get();
+
+            // si le livre nest pas trouvé exception levée ici
+           BooksEntity bookToUpdate=booksRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found."));
 
             //verifies if author exists
             AuthorEntity author = authorRepository.findById(request.authorId())
                     .orElseThrow(() -> new ResourceNotFoundException("Author not found."));
+
+            //verifier si le livre est deja en base
+            boolean isExistingBook = booksRepository.existsByTitleAndAuthorAndPages(request.title(), author, request.pages());
+            if (isExistingBook)
+                throw new BadRequestException("Book already exists in the database.");
+
 
             bookToUpdate.setTitle(request.title());
             bookToUpdate.setPages(request.pages());
@@ -113,9 +138,9 @@ public class BooksServicesImplement implements BooksServices {
 
             booksRepository.save(bookToUpdate);
             return ResponseEntity.ok("Book updated successfully.");
-        } else {
-            throw new ResourceNotFoundException("Book not found.");
-        }
+//        } else {
+//            throw new ResourceNotFoundException("Book not found.");
+//        }
 
     }
 }

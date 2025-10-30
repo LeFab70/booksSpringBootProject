@@ -1,7 +1,7 @@
 package org.leFab.library.books.services.interfaces;
 
-import org.leFab.library.books.dto.dto.BookRequest;
-import org.leFab.library.books.dto.dto.BookResponse;
+import org.leFab.library.books.dto.BookRequest;
+import org.leFab.library.books.dto.BookResponse;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

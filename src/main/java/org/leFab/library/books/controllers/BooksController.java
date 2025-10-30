@@ -10,8 +10,8 @@ import org.leFab.library.adress.entities.AddressEntity;
 import org.leFab.library.adress.repositories.AdressRepository;
 import org.leFab.library.authors.entities.AuthorEntity;
 import org.leFab.library.authors.repositories.AuthorRepository;
-import org.leFab.library.books.dto.dto.BookRequest;
-import org.leFab.library.books.dto.dto.BookResponse;
+import org.leFab.library.books.dto.BookRequest;
+import org.leFab.library.books.dto.BookResponse;
 import org.leFab.library.books.repositories.BooksRepository;
 import org.leFab.library.books.services.interfaces.BooksServices;
 import org.leFab.library.exceptions.BadRequestException;
@@ -49,7 +49,7 @@ public class BooksController {
     // Endpoints to be implemented
 
     @Operation(summary = "Generate Test Data", description = "Generates and adds random test data to the database if no books exist.")
-    @PostMapping("/testdata")
+    @PostMapping(value = "/testdata",consumes = "application/json",produces = "application/json")
     public ResponseEntity<String> generateTestData() {
 
         if (booksServices.getAllBooks().isEmpty()) {
@@ -100,24 +100,27 @@ public class BooksController {
 
 
     @Operation(summary = "Add a New Book", description = "Adds a new book to the database.")
-    @PostMapping()
+    @PostMapping(consumes = "application/json",produces = "application/json")
     public ResponseEntity<String> addBook(@Valid  @RequestBody BookRequest book){
             return booksServices.addBook(book);
             //return ResponseEntity.ok("Book added successfully.");
     }
+
+
     @Operation(summary = "Get All Books", description = "Retrieves a list of all books in the database.")
-    @GetMapping()
+    @GetMapping(produces = "application/json")
     public List<BookResponse> getAllBooks(){
         return booksServices.getAllBooks();
     }
-@Operation(summary = "Get Book by ID", description = "Retrieves a book by its ID.")
-    @GetMapping("/book/{id}")
+
+    @Operation(summary = "Get Book by ID", description = "Retrieves a book by its ID.")
+    @GetMapping(value = "/book/{id}",produces = "application/json")
     public BookResponse getBookById(@PathVariable Long id){
         return booksServices.getBookById(id);
     }
 
     @Operation(summary = "Delete Book by ID", description = "Deletes a book by its ID.")
-    @DeleteMapping("/book/{id}")
+    @DeleteMapping(value = "/book/{id}",consumes = "application/json",produces = "application/json")
     public ResponseEntity<String> deleteBook(@PathVariable Long id){
 
         authorRepository.deleteAll(); // Just for testing, to be removed later
@@ -128,14 +131,8 @@ public class BooksController {
     }
 
     @Operation(summary = "Update Book by ID", description = "Updates the details of a book by its ID.")
-    @PutMapping("/book/{id}")
-    public ResponseEntity<String> updateBook(@PathVariable Long id, @RequestBody BookRequest updatedBook){
-        return booksServices.updateBook(id,
-                new BookRequest(
-                        updatedBook.title(),
-                        updatedBook.pages(),
-                        updatedBook.publishedDate(),
-                        updatedBook.authorId()
-                ));
+    @PutMapping(value = "/book/{id}",consumes = "application/json",produces = "application/json")
+    public ResponseEntity<String> updateBook(@PathVariable Long id, @Valid @RequestBody BookRequest updatedBook){
+        return booksServices.updateBook(id,updatedBook);
     }
 }
